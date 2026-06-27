@@ -89,7 +89,8 @@ export default function Skills() {
   return (  
     <section
       id="skills"
-      style={{ padding: "6rem 1.5rem", position: "relative", zIndex: 1, textAlign: "center" }}
+      className="section-padding"
+      style={{ textAlign: "center" }}
     >
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div className="section-badge">Technical Skills</div>
@@ -134,7 +135,8 @@ export default function Skills() {
                   gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))",
                   gap: "1rem",
                   maxWidth: "900px",
-                  margin: "0 160px",
+                  margin: "0 auto",
+                  padding: "0 1rem",
                 }}
               >
                 {cat.items.map((s) => (

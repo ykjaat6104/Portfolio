@@ -8,7 +8,8 @@ export default function About() {
   return (
     <section
       id="about"
-      style={{ padding: "6rem 1.5rem", position: "relative", zIndex: 1, background: "#14060c", textAlign: "center" }}
+      className="section-padding"
+      style={{ background: "#14060c", textAlign: "center" }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(224,90,71,0.4), transparent)" }} />
 
@@ -48,7 +49,7 @@ export default function About() {
             >
               <div
                 style={{
-                  fontSize: "1.1 rem",
+                  fontSize: "1.1rem",
                   lineHeight: 1,
                   flexShrink: 0,
                   marginTop: "0.1rem",
@@ -61,7 +62,7 @@ export default function About() {
                   style={{
                     fontFamily: '"Cormorant Garamond", sans-serif',
                     fontWeight: 700,
-                    fontSize: "1.1 rem",
+                    fontSize: "1.1rem",
                     color: "#F5E6D3",
                     marginBottom: "0.35rem",
                   }}

@@ -10,7 +10,8 @@ export default function Projects() {
     <section
       id="projects"
       ref={ref}
-      style={{ padding: "6rem 1.5rem", position: "relative", zIndex: 1, background: "#14060c", textAlign: "center" }}
+      className="section-padding"
+      style={{ background: "#14060c", textAlign: "center" }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(224,90,71,0.35), transparent)" }} />
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>

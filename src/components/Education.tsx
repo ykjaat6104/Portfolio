@@ -7,7 +7,8 @@ export default function Education() {
   return (
     <section
       id="education"
-      style={{ padding: "6rem 1.5rem", position: "relative", zIndex: 1, textAlign: "center" }}
+      className="section-padding"
+      style={{ textAlign: "center" }}
     >
       <div style={{ maxWidth: "860px", margin: "0 auto" }} ref={ref}>
         <div className="section-badge">Academic Background</div>
@@ -22,10 +23,10 @@ export default function Education() {
           {education.map((edu, i) => (
             <div
               key={i}
-              className="glow-hover"
+              className="glow-hover education-card"
               style={{
                 borderRadius: "1.25rem",
-                padding: "1.75rem",
+                padding: "1.5rem",
                 background: "#1d0a12",
                 border: "1px solid rgba(224,90,71,0.1)",
                 textAlign: "left",
@@ -84,6 +85,23 @@ export default function Education() {
           ))}
         </div>
       </div>
+      {/* Responsive education card CSS */}
+      <style>{`
+        .education-card {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          padding: 1.25rem !important;
+          gap: 1rem !important;
+        }
+        @media (min-width: 640px) {
+          .education-card {
+            flex-direction: row !important;
+            align-items: flex-start !important;
+            padding: 1.75rem !important;
+            gap: 1.25rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

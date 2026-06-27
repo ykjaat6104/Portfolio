@@ -9,7 +9,8 @@ export default function Publication() {
   return (
     <section
       id="publication"
-      style={{ padding: "6rem 1.5rem", position: "relative", zIndex: 1, textAlign: "center" }}
+      className="section-padding"
+      style={{ textAlign: "center" }}
       ref={ref}
     >
       <div style={{ maxWidth: "860px", margin: "0 auto" }}>

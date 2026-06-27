@@ -7,7 +7,8 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      style={{ padding: "6rem 1.5rem", position: "relative", zIndex: 1, background: "#14060c", textAlign: "center" }}
+      className="section-padding"
+      style={{ background: "#14060c", textAlign: "center" }}
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(224,90,71,0.35), transparent)" }} />
 
@@ -24,6 +25,7 @@ export default function Experience() {
         <div style={{ position: "relative", textAlign: "left" }}>
           {/* Vertical line */}
           <div
+            className="timeline-line"
             style={{
               position: "absolute",
               left: "1.25rem",
@@ -35,7 +37,7 @@ export default function Experience() {
             }}
           />
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem", paddingLeft: "3.5rem" }}>
+          <div className="timeline-container" style={{ display: "flex", flexDirection: "column", gap: "2.5rem", paddingLeft: "3.5rem" }}>
             {experience.map((exp, i) => (
               <div
                 key={i}
@@ -47,6 +49,7 @@ export default function Experience() {
               >
                 {/* Timeline dot */}
                 <div
+                  className="timeline-dot"
                   style={{
                     position: "absolute",
                     left: "-2.35rem",
@@ -136,6 +139,29 @@ export default function Experience() {
           </div>
         </div>
       </div>
+      {/* Responsive timeline CSS */}
+      <style>{`
+        .timeline-line {
+          left: 0.75rem !important;
+        }
+        .timeline-container {
+          padding-left: 2rem !important;
+        }
+        .timeline-dot {
+          left: -1.55rem !important;
+        }
+        @media (min-width: 640px) {
+          .timeline-line {
+            left: 1.25rem !important;
+          }
+          .timeline-container {
+            padding-left: 3.5rem !important;
+          }
+          .timeline-dot {
+            left: -2.35rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

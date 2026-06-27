@@ -58,7 +58,8 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      style={{ padding: "6rem 1.5rem", position: "relative", zIndex: 1, background: "#14060c", textAlign: "center" }}
+      className="section-padding"
+      style={{ background: "#14060c", textAlign: "center" }}
       ref={ref}
     >
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, rgba(224,90,71,0.35), transparent)" }} />
@@ -81,7 +82,7 @@ export default function Contact() {
           }}
         >
           {/* Left column */}
-          <div style={{ flex: "1 1 280px", minWidth: "260px" }}>
+          <div style={{ flex: "1 1 280px", minWidth: "240px" }}>
             <h3 style={{ fontFamily: '"Cormorant Garamond", sans-serif', fontWeight: 700, fontSize: "1.35rem", color: "#F5E6D3", marginBottom: "0.85rem", lineHeight: 1.3 }}>
               Let's build something amazing together
             </h3>
@@ -189,9 +190,10 @@ export default function Contact() {
 
           {/* Right column: Form */}
           <div
+            className="contact-form-container"
             style={{
               flex: "1 1 300px",
-              minWidth: "280px",
+              minWidth: "240px",
               borderRadius: "1.25rem",
               padding: "2rem",
               background: "#1d0a12",
@@ -259,6 +261,17 @@ export default function Contact() {
           </div>
         </div>
       </div>
+      {/* Responsive form padding CSS */}
+      <style>{`
+        .contact-form-container {
+          padding: 1.25rem !important;
+        }
+        @media (min-width: 640px) {
+          .contact-form-container {
+            padding: 2rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

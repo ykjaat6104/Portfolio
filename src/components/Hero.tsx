@@ -127,6 +127,7 @@ export default function Hero() {
   return (
     <section
       id="home"
+      className="hero-section"
       style={{
         minHeight: "100vh",
         display: "flex",
@@ -134,7 +135,6 @@ export default function Hero() {
         position: "relative",
         zIndex: 1,
         overflow: "hidden",
-        padding: "7rem 1.5rem 4rem",
       }}
     >
       <WineParticles />
@@ -349,13 +349,12 @@ export default function Hero() {
         </div>
 
         {/* ── RIGHT: Stats Card ── */}
-        <div ref={statRef} style={{ animation: "fadeIn 1s 0.5s ease both" }}>
+        <div ref={statRef} style={{ animation: "fadeIn 1s 0.5s ease both", maxWidth: "440px", width: "100%", margin: "0 auto" }}>
           <div
             ref={hoverRef}
-            className={cardWiggle ? "wiggle-card" : ""}
+            className={`hero-stats-card ${cardWiggle ? "wiggle-card" : ""}`}
             style={{
               borderRadius: "1.5rem",
-              padding: "2.5rem",
               background: "linear-gradient(135deg, #1d0a12, #281018)",
               border: cardHovered ? "1px solid rgba(224,90,71,0.6)" : "1px solid rgba(224,90,71,0.18)",
               boxShadow: cardHovered
@@ -465,6 +464,22 @@ export default function Hero() {
 
       {/* Responsive grid CSS */}
       <style>{`
+        .hero-section {
+          padding: 5rem 1.25rem 3rem !important;
+        }
+        .hero-stats-card {
+          padding: 1.25rem !important;
+        }
+        @media (min-width: 640px) {
+          .hero-stats-card {
+            padding: 2.5rem !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .hero-section {
+            padding: 7rem 1.5rem 4rem !important;
+          }
+        }
         @media (min-width: 900px) {
           .hero-grid {
             grid-template-columns: 1.15fr 0.85fr !important;

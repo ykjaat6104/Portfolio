@@ -27,8 +27,21 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 20px;
+  font-size: 16px;
 }
+
+@media (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 20px;
+  }
+}
+
 
 body {
   font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
@@ -172,7 +185,18 @@ h1, h2, h3, h4, h5, h6 {
   transition: width 0.1s linear;
 }
 
-/* ─── Section Layout ─────────────────────────────── */
+.section-padding {
+  padding: 4rem 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 6rem 1.5rem;
+  }
+}
+
 .section-container {
   width: 100%;
   max-width: 1200px;
