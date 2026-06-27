@@ -15,6 +15,7 @@ function SkillRing({ name, level }: { name: string; level: number }) {
 
   return (
     <div
+      className="skill-ring-hover"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -24,16 +25,7 @@ function SkillRing({ name, level }: { name: string; level: number }) {
         borderRadius: "1rem",
         background: "#1d0a12",
         border: "1px solid rgba(224,90,71,0.1)",
-        transition: "transform 0.25s ease, box-shadow 0.25s ease",
         cursor: "default",
-      }}
-      onMouseEnter={e => {
-        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 24px rgba(224,90,71,0.18)";
-      }}
-      onMouseLeave={e => {
-        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-        (e.currentTarget as HTMLElement).style.boxShadow = "none";
       }}
     >
       {/* SVG ring with percentage INSIDE the svg */}

@@ -1,6 +1,6 @@
 export const personalInfo = {
   name: "Yash Kumar Kalirawan",
-  initials: "YK",
+  initials: "YKK",
   title: "AI & Backend Developer",
   tagline: "AI & Backend Developer · RAG & Multi-Agent Systems · Python & React",
   description:
@@ -12,7 +12,7 @@ export const personalInfo = {
   github: "ykjaat6104",
   available: true,
   stats: {
-    Projects: "10+",
+    Projects: "10",
     Followers: "6",
     "Open to Work": "Now",
   },

@@ -34,24 +34,16 @@ export default function About() {
           {highlights.map((h, i) => (
             <div
               key={i}
+              className="float-hover"
               style={{
                 borderRadius: "1.25rem",
                 padding: "1.5rem 1.5rem",
                 background: "#1d0a12",
                 border: "1px solid rgba(224,90,71,0.1)",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
                 textAlign: "left",
                 display: "flex",
                 gap: "1rem",
                 alignItems: "flex-start",
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 12px 32px rgba(224,90,71,0.15)";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
               }}
             >
               <div

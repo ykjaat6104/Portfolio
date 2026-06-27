@@ -63,8 +63,34 @@ const emailIcon = "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 
 
 export default function Hero() {
   const { name, tagline, description, stats, github, linkedin, email } = personalInfo;
+
+  // Parse numeric target from stats data (e.g. "10+" → 10, "6" → 6)
+  const projectsTarget = parseInt(stats.Projects) || 10;
+  const followersTarget = parseInt(stats.Followers) || 6;
+
   const [counts, setCounts] = useState({ Projects: 0, Followers: 0 });
+  const [cardWiggle, setCardWiggle] = useState(false);
+  const [cardHovered, setCardHovered] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const statRef = useRef<HTMLDivElement>(null);
+  const hoverRef = useRef<HTMLDivElement>(null);
+
+  // Mouse-tracking tilt — same mechanic as ProjectCard
+  const handleCardMouse = (e: React.MouseEvent) => {
+    const rect = hoverRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    setTilt({ x: ((y - cy) / cy) * -7, y: ((x - cx) / cx) * 7 });
+  };
+
+  const handleCardLeave = () => {
+    setTilt({ x: 0, y: 0 });
+    setCardHovered(false);
+    setCardWiggle(false);
+  };
 
   useEffect(() => {
     const el = statRef.current;
@@ -76,7 +102,10 @@ export default function Hero() {
           const start = performance.now();
           const anim = (now: number) => {
             const p = Math.min((now - start) / dur, 1);
-            setCounts({ Projects: Math.floor(p * 18), Followers: Math.floor(p * 6) });
+            setCounts({
+              Projects: Math.floor(p * projectsTarget),
+              Followers: Math.floor(p * followersTarget),
+            });
             if (p < 1) requestAnimationFrame(anim);
           };
           requestAnimationFrame(anim);
@@ -87,7 +116,7 @@ export default function Hero() {
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, []);
+  }, [projectsTarget, followersTarget]);
 
   const socials = [
     { href: `https://github.com/${github}`, d: githubIcon, stroke: false, label: "GitHub" },
@@ -322,17 +351,45 @@ export default function Hero() {
         {/* ── RIGHT: Stats Card ── */}
         <div ref={statRef} style={{ animation: "fadeIn 1s 0.5s ease both" }}>
           <div
+            ref={hoverRef}
+            className={cardWiggle ? "wiggle-card" : ""}
             style={{
               borderRadius: "1.5rem",
               padding: "2.5rem",
               background: "linear-gradient(135deg, #1d0a12, #281018)",
-              border: "1px solid rgba(224,90,71,0.18)",
-              boxShadow: "0 0 60px rgba(224,90,71,0.12), 0 20px 60px rgba(0,0,0,0.5)",
+              border: cardHovered ? "1px solid rgba(224,90,71,0.6)" : "1px solid rgba(224,90,71,0.18)",
+              boxShadow: cardHovered
+                ? "0 0 80px rgba(224,90,71,0.25), 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(224,90,71,0.15)"
+                : "0 0 60px rgba(224,90,71,0.12), 0 20px 60px rgba(0,0,0,0.5)",
               position: "relative",
               overflow: "hidden",
+              // Combine perspective tilt with the hover lift — tilt is live during mousemove
+              transform: cardHovered
+                ? `perspective(900px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(-6px) scale(1.02)`
+                : "perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)",
+              // No transition while actively tracking mouse (real-time feel); spring back on leave
+              transition: (tilt.x !== 0 || tilt.y !== 0)
+                ? "box-shadow 0.35s ease, border-color 0.35s ease"
+                : "transform 0.5s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease, border-color 0.35s ease",
+              cursor: "pointer",
             }}
+            onMouseEnter={() => { setCardHovered(true); setCardWiggle(true); }}
+            onMouseMove={handleCardMouse}
+            onMouseLeave={handleCardLeave}
+            onAnimationEnd={() => setCardWiggle(false)}
           >
-            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent, #E05A47, transparent)" }} />
+            {/* Top shimmer line */}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: "linear-gradient(90deg, transparent, #E05A47, #ff7a66, transparent)", opacity: cardHovered ? 1 : 0.5, transition: "opacity 0.3s" }} />
+
+            {/* Hover shimmer sweep */}
+            {cardHovered && (
+              <div style={{
+                position: "absolute", top: 0, left: 0, width: "60px", height: "100%",
+                background: "linear-gradient(90deg, transparent, rgba(224,90,71,0.08), transparent)",
+                animation: "shimmer-sweep 1s ease infinite",
+                pointerEvents: "none",
+              }} />
+            )}
 
             {/* Avatar */}
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "1.75rem", gap: "0.75rem" }}>
@@ -350,6 +407,8 @@ export default function Hero() {
                   fontSize: "1.6rem",
                   color: "#F5E6D3",
                   flexShrink: 0,
+                  boxShadow: cardHovered ? "0 0 20px rgba(224,90,71,0.5)" : "none",
+                  transition: "box-shadow 0.3s ease",
                 }}
               >
                 YK

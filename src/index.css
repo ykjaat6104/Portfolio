@@ -94,6 +94,43 @@ h1, h2, h3, h4, h5, h6 {
   50%       { background-position: 100% 50%; }
 }
 
+/* ─── Wiggle (name card in hero) ────────────────── */
+@keyframes wiggle {
+  0%   { transform: rotate(0deg) scale(1); }
+  15%  { transform: rotate(-3deg) scale(1.04); }
+  30%  { transform: rotate(3deg) scale(1.04); }
+  45%  { transform: rotate(-2deg) scale(1.02); }
+  60%  { transform: rotate(2deg) scale(1.02); }
+  75%  { transform: rotate(-1deg) scale(1.01); }
+  90%  { transform: rotate(1deg) scale(1.01); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* ─── Float (about highlights) ──────────────────── */
+@keyframes float-card {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* ─── Shimmer sweep (project cards) ─────────────── */
+@keyframes shimmer-sweep {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* ─── Glow pulse (education / publication cards) ── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0px rgba(224,90,71,0); }
+  50%       { box-shadow: 0 0 28px rgba(224,90,71,0.35); }
+}
+
+/* ─── Border march (skill rings) ────────────────── */
+@keyframes border-march {
+  0%   { border-color: rgba(224,90,71,0.15); }
+  50%  { border-color: rgba(224,90,71,0.6); }
+  100% { border-color: rgba(224,90,71,0.15); }
+}
+
 /* ─── Scroll Reveal ──────────────────────────────── */
 .reveal {
   opacity: 0;
@@ -193,4 +230,113 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Glow ───────────────────────────────────────── */
 .glow-wine {
   box-shadow: 0 0 40px rgba(224, 90, 71, 0.2);
+}
+
+/* ─── Wiggle Card (hero stats card on hover) ─────── */
+.wiggle-card {
+  animation: wiggle 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform-origin: center center;
+}
+
+/* ─── Float hover (about highlights) ────────────── */
+.float-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.float-hover:hover {
+  animation: float-card 1.8s ease-in-out infinite;
+  box-shadow: 0 16px 40px rgba(224, 90, 71, 0.22) !important;
+  border-color: rgba(224, 90, 71, 0.4) !important;
+}
+
+/* ─── Glow pulse hover (education cards) ─────────── */
+.glow-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.glow-hover:hover {
+  animation: glow-pulse 1.2s ease-in-out infinite;
+  border-color: rgba(224, 90, 71, 0.5) !important;
+  transform: translateY(-5px);
+}
+
+/* ─── Skill ring: border march + lift on hover ───── */
+.skill-ring-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.35s ease;
+}
+.skill-ring-hover:hover {
+  animation: border-march 1s ease infinite;
+  transform: translateY(-6px) scale(1.06);
+  box-shadow: 0 10px 28px rgba(224, 90, 71, 0.28);
+}
+
+/* ─── Project card: shimmer glow on hover ────────── */
+.project-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.project-card:hover {
+  border-color: rgba(224, 90, 71, 0.4) !important;
+  box-shadow: 0 0 0 1px rgba(224, 90, 71, 0.15), 0 24px 60px rgba(0,0,0,0.5) !important;
+}
+
+/* ─── Border Beam (rotating color line on card edge) */
+@keyframes border-beam-spin {
+  to { transform: rotate(360deg); }
+}
+
+/*
+ * How it works:
+ *  1. Wrapper has overflow:hidden + padding:1.5px → only the 1.5px gap is visible
+ *  2. ::before is a large square with conic-gradient centered on the wrapper
+ *  3. It rotates → the gradient color sweeps around the card border
+ *  4. Paused by default → plays only on :hover
+ */
+.border-beam-wrapper {
+  position: relative;
+  border-radius: 1rem;
+  /* 1.5px gap between wrapper edge and inner card = the "border" */
+  padding: 1.5px;
+  overflow: hidden;
+  /* Subtle dark background fills the gap when beam is invisible */
+  background: rgba(224, 90, 71, 0.08);
+}
+
+.border-beam-wrapper::before {
+  content: '';
+  position: absolute;
+  /* Big enough square so corners are always covered */
+  width: 220%;
+  aspect-ratio: 1 / 1;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  /* Tight conic beam: only ~80deg of the gradient is visible color */
+  background: conic-gradient(
+    from 0deg,
+    transparent   0deg,
+    transparent 260deg,
+    #c94c3a     300deg,
+    #E05A47     320deg,
+    #ff7a66     340deg,
+    transparent 360deg
+  );
+  /* Start paused; hover activates */
+  animation: border-beam-spin 2.4s linear infinite;
+  animation-play-state: paused;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.border-beam-wrapper:hover::before {
+  animation-play-state: running;
+  opacity: 1;
+}
+
+/* Inner card must sit above the ::before layer */
+.border-beam-wrapper > * {
+  position: relative;
+  z-index: 1;
+  /* Match border-radius minus the 1.5px gap */
+  border-radius: calc(1rem - 1.5px);
+  height: 100%;
 }

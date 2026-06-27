@@ -22,6 +22,7 @@ export default function Education() {
           {education.map((edu, i) => (
             <div
               key={i}
+              className="glow-hover"
               style={{
                 borderRadius: "1.25rem",
                 padding: "1.75rem",
@@ -31,15 +32,6 @@ export default function Education() {
                 display: "flex",
                 alignItems: "flex-start",
                 gap: "1.25rem",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(-3px)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "0 10px 30px rgba(224,90,71,0.12)";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
               }}
             >
               {/* Icon */}
