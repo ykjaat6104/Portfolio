@@ -94,7 +94,7 @@ export const experience = [
   {
     date: "Nov 2025 – Jan 2026",
     role: "Artificial Intelligence Intern",
-    company: "InnovateLoop Solutions · Remote",
+    company: "Atlys Integrated Infotech · Remote",
     description: [
       "Developed and deployed LLM-powered applications using Gemini/OpenAI APIs for real-world use cases, achieving 40% faster response times through optimized prompt strategies.",
       "Built end-to-end RAG pipelines with ChromaDB vector databases enabling context-aware question answering over 10,000+ document pages.",
